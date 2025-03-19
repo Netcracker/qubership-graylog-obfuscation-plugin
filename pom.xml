@@ -33,7 +33,7 @@
         <javassist.version>3.23.1-GA</javassist.version>
         <guice.junit.test.runner.version>1.1</guice.junit.test.runner.version>
         <snakeyaml.version>1.26</snakeyaml.version>
-        <json.version>20190722</json.version>
+        <json.version>20250107</json.version>
         <yarn.executable>yarn</yarn.executable>
     </properties>
 
