@@ -1,0 +1,27 @@
+version: 2
+updates:
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "monthly"
+- package-ecosystem: "maven"
+  directory: "/"
+  schedule:
+    interval: "monthly"
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "monthly"
+  groups:
+    patch:
+      applies-to: version-updates
+      update-types:
+      - patch
+    minor:
+      applies-to: version-updates
+      update-types:
+      - minor
+    major:
+      applies-to: version-updates
+      update-types:
+      - major
