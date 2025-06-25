@@ -24,7 +24,7 @@ From left/right side the number, letter or dash with number or letter cannot be.
 where:
 * `MM` - Constant, 89 for telecom operators.
 * `CC` - Country code (i.e. 61 = Australia, 86 = China). Length 1-3
-* `II` - Issuer identifier (AAPT = 14, EZI-PhoneCard = 88, Hutchison = 06, Optus = 02/12/21/23, Telstra = 01, Telstra Business = 00/61/62, Vodafone = 03). Length 1-4
+* `II` - Issuer identifier. Length 1-4
 * `N`{11-12} - Account id (SIM number).
 * `C` - Checksum calculated from the other 19 digits using the Luhn algorithm.
 ## 3. PN (Password Number)
