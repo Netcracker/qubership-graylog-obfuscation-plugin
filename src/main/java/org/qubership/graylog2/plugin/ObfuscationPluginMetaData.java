@@ -31,7 +31,7 @@ public class ObfuscationPluginMetaData implements PluginMetaData {
 
     @Override
     public URI getURL() {
-        return URI.create("https://git.netcracker.com/PROD.Platform.Logging/graylog-obfuscation-plugin");
+        return URI.create("https://github.com/Netcracker/qubership-graylog-obfuscation-plugin");
     }
 
     @Override
