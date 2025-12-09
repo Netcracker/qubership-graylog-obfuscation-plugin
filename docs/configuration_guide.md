@@ -15,13 +15,13 @@ The graylog-obfuscation-plugin have a following endpoints:
 1. Get Configuration
     Get current plugin configuration
     Method: GET
-    URL: https://{graylog-server-url}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration
+    URL: https://{graylog-server-url}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration
     Parameters: none
 
 2. Install Configuration
     Install the custom configuration to plugin
     * Method: POST
-    * URL: https://{graylog-server-url}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration
+    * URL: https://{graylog-server-url}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration
     * Headers: Content-Type=application/json
     * Parameters: body as configuration json
 
@@ -29,18 +29,18 @@ The graylog-obfuscation-plugin have a following endpoints:
     Synchronized current with default configuration.
     The endpoint called in logging-deploy-service run
     * Method: PUT
-    * URL: https://{graylog-server-url}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration/sync
+    * URL: https://{graylog-server-url}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/sync
     * Parameters: sync_mode={CREATE_ONLY|FORCE_UPDATE|SKIP}
 
 4. Reset Configuration
     Perform reset configuration to default
     * Method: PUT
-    * URL: https://{graylog-server-url}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration/reset
+    * URL: https://{graylog-server-url}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/reset
     * Parameters: none
 
 5. Obfuscate Text
    * Method: POST
-   * URL: https://{graylog-server-url}/api/plugins/org.qubership.graylog2.plugin/obfuscation
+   * URL: https://{graylog-server-url}/api/plugins/com.netcracker.graylog2.plugin/obfuscation
    * Headers: Content-Type=text/plain
    * Parameters: body as text
 

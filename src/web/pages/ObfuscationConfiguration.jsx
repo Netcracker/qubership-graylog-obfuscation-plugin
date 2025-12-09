@@ -15,7 +15,7 @@ export class ObfuscationConfiguration extends React.Component {
     constructor(props) {
         super(props);
         this.modal = null;
-        this.prefixURL = '/api/plugins/org.qubership.graylog2.plugin';
+        this.prefixURL = '/api/plugins/com.netcracker.graylog2.plugin';
         this.regexes = [];
         this.regexTestCompileRequestId = null;
         this.processorName = 'Message Obfuscator';

@@ -2,7 +2,6 @@
 
 A Graylog plugin for automatic analysis and obfuscation of sensitive data in log messages using configurable regular expressions.
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.qubership.graylog2.plugin/graylog-obfuscation-plugin?label=maven%20central&style=flat-square)](https://central.sonatype.com/artifact/org.qubership.graylog2.plugin/graylog-obfuscation-plugin)
 [![Release](https://img.shields.io/github/v/release/Netcracker/qubership-graylog-obfuscation-plugin?style=flat-square)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/releases)
 [![Docs](https://img.shields.io/website?url=https%3A//github.com/Netcracker/qubership-graylog-obfuscation-plugin/tree/main/docs&label=docs&style=flat-square)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/tree/main/docs)
 [![Super Linter](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/actions/workflows/super-linter.yaml)
@@ -98,11 +97,11 @@ The plugin can be configured through:
 
 ### REST API Endpoints
 
-- **GET** `/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration` - Get current configuration
-- **POST** `/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration` - Update configuration
-- **PUT** `/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration/sync` - Sync with default
-- **PUT** `/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration/reset` - Reset to default
-- **POST** `/api/plugins/org.qubership.graylog2.plugin/obfuscation` - Test obfuscation
+- **GET** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration` - Get current configuration
+- **POST** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration` - Update configuration
+- **PUT** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/sync` - Sync with default
+- **PUT** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/reset` - Reset to default
+- **POST** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation` - Test obfuscation
 
 ### Configuration Parameters
 
