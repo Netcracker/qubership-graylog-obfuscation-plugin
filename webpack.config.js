@@ -3,7 +3,7 @@ const loadBuildConfig = require('graylog-web-plugin').loadBuildConfig; // eslint
 const path = require('path'); // eslint-disable-line no-use-before-define
 const buildConfig = loadBuildConfig(path.resolve(__dirname, './build.config')); // eslint-disable-line no-use-before-define
 
-module.exports = new PluginWebpackConfig('org.qubership.graylog2.plugin.ObfuscationPlugin', buildConfig, {
+module.exports = new PluginWebpackConfig('com.netcracker.graylog2.plugin.ObfuscationPlugin', buildConfig, {
     // Here goes your additional webpack configuration.
 });
 

@@ -6,7 +6,7 @@ info:
     This is document that describes proposed REST API for Graylog Obfuscation Plugin.
 
 servers:
-  - url: https://{GRAYLOG_URL}/api/plugins/org.qubership.graylog2.plugin
+  - url: https://{GRAYLOG_URL}/api/plugins/com.netcracker.graylog2.plugin
     description: Graylog instance
 
 tags:

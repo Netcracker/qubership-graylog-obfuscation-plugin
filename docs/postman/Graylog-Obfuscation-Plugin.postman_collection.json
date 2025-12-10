@@ -48,7 +48,7 @@
                     ]
                 },
                 "url": {
-                    "raw": "https://{{graylog-server}}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration/sync",
+                    "raw": "https://{{graylog-server}}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/sync",
                     "protocol": "https",
                     "host": [
                         "{{graylog-server}}"
@@ -56,7 +56,7 @@
                     "path": [
                         "api",
                         "plugins",
-                        "org.qubership.graylog2.plugin",
+                        "com.netcracker.graylog2.plugin",
                         "obfuscation",
                         "configuration",
                         "sync"
@@ -90,7 +90,7 @@
                     "raw": ""
                 },
                 "url": {
-                    "raw": "https://{{graylog-server}}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration",
+                    "raw": "https://{{graylog-server}}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration",
                     "protocol": "https",
                     "host": [
                         "{{graylog-server}}"
@@ -98,7 +98,7 @@
                     "path": [
                         "api",
                         "plugins",
-                        "org.qubership.graylog2.plugin",
+                        "com.netcracker.graylog2.plugin",
                         "obfuscation",
                         "configuration"
                     ]
@@ -142,7 +142,7 @@
                     "raw": ""
                 },
                 "url": {
-                    "raw": "https://{{graylog-server}}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration",
+                    "raw": "https://{{graylog-server}}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration",
                     "protocol": "https",
                     "host": [
                         "{{graylog-server}}"
@@ -150,7 +150,7 @@
                     "path": [
                         "api",
                         "plugins",
-                        "org.qubership.graylog2.plugin",
+                        "com.netcracker.graylog2.plugin",
                         "obfuscation",
                         "configuration"
                     ]
@@ -189,7 +189,7 @@
                     "raw": ""
                 },
                 "url": {
-                    "raw": "https://{{graylog-server}}/api/plugins/org.qubership.graylog2.plugin/obfuscation/configuration/reset",
+                    "raw": "https://{{graylog-server}}/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/reset",
                     "protocol": "https",
                     "host": [
                         "{{graylog-server}}"
@@ -197,7 +197,7 @@
                     "path": [
                         "api",
                         "plugins",
-                        "org.qubership.graylog2.plugin",
+                        "com.netcracker.graylog2.plugin",
                         "obfuscation",
                         "configuration",
                         "reset"
@@ -252,7 +252,7 @@
                     "raw": ""
                 },
                 "url": {
-                    "raw": "https://{{graylog-server}}/api/plugins/org.qubership.graylog2.plugin/obfuscation",
+                    "raw": "https://{{graylog-server}}/api/plugins/com.netcracker.graylog2.plugin/obfuscation",
                     "protocol": "https",
                     "host": [
                         "{{graylog-server}}"
@@ -260,7 +260,7 @@
                     "path": [
                         "api",
                         "plugins",
-                        "org.qubership.graylog2.plugin",
+                        "com.netcracker.graylog2.plugin",
                         "obfuscation"
                     ]
                 }
