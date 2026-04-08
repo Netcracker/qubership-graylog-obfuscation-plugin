@@ -4,7 +4,7 @@ module.exports = {
     {
       files: ["**/*.md"],
       options: {
-        proseWrap: "never",
+        proseWrap: "always",
       },
     },
   ],

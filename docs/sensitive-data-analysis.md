@@ -2,8 +2,10 @@
 ## 1. SSN (Social Security Number)
 
 **Document**:
-* [https://www.investopedia.com/terms/s/ssn.asp](https://www.investopedia.com/terms/s/ssn.asp)
-* [https://en.wikipedia.org/wiki/Social_Security_number](https://en.wikipedia.org/wiki/Social_Security_number)  
+* [https://www.investopedia.com/terms/s/ssn.asp]
+(https://www.investopedia.com/terms/s/ssn.asp)
+* [https://en.wikipedia.org/wiki/Social_Security_number]
+(https://en.wikipedia.org/wiki/Social_Security_number)  
 Three number fields are separated by dash
 **Format**: `AAA-GG-SSSS`
 where:
@@ -12,8 +14,8 @@ Values 650-699 is not assigned.
 Values 700-728 is Railroad workers through 1963, then discontinued.
 Values 729-799 is not assigned.
 Values 800-999 is not valid.
-Effective June 25, 2011, the SSA assigns SSNs randomly and allows for the assignment of area numbers 
-between 734 and 749 and above 772 through the 800s.  
+Effective June 25, 2011, the SSA assigns SSNs randomly and allows for the 
+assignment of area numbers between 734 and 749 and above 772 through the 800s.  
 * `GG` - is group number. The value 00 is excluded by default.
 * `SSSS` - is serial number. The value 0000 is excluded by default.
 From left/right side the number, letter or dash with number or letter cannot be.
@@ -21,7 +23,8 @@ From left/right side the number, letter or dash with number or letter cannot be.
 ## 2. ICCID (Integrated Circuit Card Identifier)
 
 **Document**:
-* [https://www.theiphonewiki.com/wiki/ICCID](https://www.theiphonewiki.com/wiki/ICCID)
+* [https://www.theiphonewiki.com/wiki/ICCID]
+(https://www.theiphonewiki.com/wiki/ICCID)
 **Format**: `MMCC IINN NNNN NNNN NN C x`, Length 19-20 digits
 where:
 * `MM` - Constant, 89 for telecom operators.
