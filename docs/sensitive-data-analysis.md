@@ -1,7 +1,7 @@
 # The sensitive data description
 ## 1. SSN (Social Security Number)
 **Document**:
-    - [https://www.usrecordsearch.com/ssn.htm](https://www.usrecordsearch.com/ssn.htm)
+    - [https://www.investopedia.com/terms/s/ssn.asp](https://www.investopedia.com/terms/s/ssn.asp)
     - [https://en.wikipedia.org/wiki/Social_Security_number](https://en.wikipedia.org/wiki/Social_Security_number)  
 Three number fields are separated by dash
 
