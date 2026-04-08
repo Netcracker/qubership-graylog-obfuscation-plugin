@@ -12,7 +12,8 @@ Values 650-699 is not assigned.
 Values 700-728 is Railroad workers through 1963, then discontinued.
 Values 729-799 is not assigned.
 Values 800-999 is not valid.
-Effective June 25, 2011, the SSA assigns SSNs randomly and allows for the assignment of area numbers between 734 and 749 and above 772 through the 800s.  
+Effective June 25, 2011, the SSA assigns SSNs randomly and allows for the assignment of area numbers 
+between 734 and 749 and above 772 through the 800s.  
 * `GG` - is group number. The value 00 is excluded by default.
 * `SSSS` - is serial number. The value 0000 is excluded by default.
 From left/right side the number, letter or dash with number or letter cannot be.
