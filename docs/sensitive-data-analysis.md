@@ -11,7 +11,11 @@ Three number fields are separated by dashes.
 **Format**: `AAA-GG-SSSS`
 
 where:
-- `AAA` - Area number. Excludes `000`. Values 650-699 unassigned. Values 700-728 for railroad workers through 1963 (discontinued). Values 729-799 unassigned. Values 800-999 invalid. Since June 25, 2011, SSA assigns randomly, including 734-749 and above 772 through 800s.
+- `AAA` - Area number. Excludes `000`. Values 650-699 unassigned.
+Values 700-728 for railroad workers through 1963 (discontinued).
+Values 729-799 unassigned.
+Values 800-999 invalid.
+Since June 25, 2011, SSA assigns randomly, including 734-749 and above 772 through 800s.
 - `GG` - Group number. Excludes `00`.
 - `SSSS` - Serial number. Excludes `0000`.
 
