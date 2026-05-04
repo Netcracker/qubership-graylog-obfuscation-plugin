@@ -4,7 +4,6 @@
 
 **Documents**:
 
-- [https://www.investopedia.com/terms/s/ssn.asp](https://www.investopedia.com/terms/s/ssn.asp)
 - [https://en.wikipedia.org/wiki/Social_Security_number](https://en.wikipedia.org/wiki/Social_Security_number)
 
 Three number fields are separated by dashes.
