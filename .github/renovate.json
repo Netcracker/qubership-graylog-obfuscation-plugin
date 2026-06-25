@@ -12,7 +12,8 @@
     {
       "description": "All other GitHub Actions",
       "matchManagers": ["github-actions"],
-      "groupName": "actions-deps"
+      "groupName": "actions-deps",
+      "separateMajorMinor": false
     },
     {
       "description": "Netcracker GitHub Actions and reusable workflows",
@@ -24,7 +25,8 @@
     {
       "description": "All other 3rd party Docker images",
       "matchManagers": ["dockerfile"],
-      "groupName": "docker-deps"
+      "groupName": "docker-deps",
+      "separateMajorMinor": false
     },
     {
       "description": "Netcracker Docker images",
@@ -32,17 +34,6 @@
       "matchPackageNames": ["ghcr.io/netcracker/**"],
       "groupName": "netcracker-docker-images",
       "separateMajorMinor": false
-    },
-    {
-      "description": "All other Go dependencies",
-      "matchManagers": ["gomod"],
-      "groupName": "go-deps"
-    },
-    {
-      "description": "Kubernetes-related Go modules",
-      "matchManagers": ["gomod"],
-      "matchPackageNames": ["k8s.io/**", "sigs.k8s.io/**"],
-      "groupName": "go-k8s"
     }
   ]
 }

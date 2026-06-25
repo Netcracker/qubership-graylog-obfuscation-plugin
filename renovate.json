@@ -1,41 +1,26 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices"
-  ],
-  "labels": [
-    "dependencies"
-  ],
-  "automerge": true,
-  "platformAutomerge": false,
-  "schedule": [
-    "* * */4 * *"
-  ],
-  "ignorePaths": [
-    "**/node_modules/**"
-  ],
+  "extends": ["config:recommended", "schedule:monthly"],
+  "labels": ["dependencies"],
+  "prConcurrentLimit": 20,
   "packageRules": [
     {
-      "description": "Group all GitHub Actions updates into a single PR",
-      "groupName": "GitHub Actions",
-      "matchManagers": [
-        "github-actions"
-      ]
+      "matchManagers": ["github-actions"],
+      "groupName": "actions-deps",
+      "separateMajorMinor": false
     },
     {
-      "description": "Keep the Graylog server dependency and the graylog-plugin-parent aligned",
-      "groupName": "Graylog",
-      "matchPackageNames": [
-        "org.graylog2{/,}**",
-        "org.graylog.plugins{/,}**"
-      ]
+      "matchManagers": ["maven"],
+      "groupName": "maven-deps"
     },
     {
-      "description": "Stick with Mockito 4.x as Mockito 5+ requires Java 11 at runtime (this plugin targets Java 8)",
-      "allowedVersions": "< 5",
-      "matchPackageNames": [
-        "org.mockito{/,}**"
-      ]
+      "matchManagers": ["npm"],
+      "groupName": "npm-deps"
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "groupName": "docker-deps",
+      "separateMajorMinor": false
     }
   ]
 }
