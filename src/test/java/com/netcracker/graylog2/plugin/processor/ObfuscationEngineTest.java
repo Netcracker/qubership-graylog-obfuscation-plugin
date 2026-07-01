@@ -1,43 +1,68 @@
 package com.netcracker.graylog2.plugin.processor;
 
-import com.carlosbecker.guice.GuiceModules;
-import com.carlosbecker.guice.GuiceTestRunner;
-import com.google.common.collect.Lists;
-import com.netcracker.graylog2.plugin.TestObfuscationModule;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationEngine;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationResponse;
 import com.netcracker.graylog2.plugin.obfuscation.SensitiveRegularExpression;
+import com.netcracker.graylog2.plugin.obfuscation.SensitiveDataResolver;
+import com.netcracker.graylog2.plugin.obfuscation.WhiteListService;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
+import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationProvider;
+import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationSerializer;
+import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationService;
 import com.netcracker.graylog2.plugin.obfuscation.replace.StaticStarTextReplacer;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.netcracker.graylog2.plugin.obfuscation.search.RegularExpressionSensitiveDataSearcher;
+import com.netcracker.graylog2.plugin.obfuscation.search.SensitiveDataSearcher;
+import com.netcracker.graylog2.plugin.utils.ResourceLoader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
-@RunWith(GuiceTestRunner.class)
-@GuiceModules(TestObfuscationModule.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ObfuscationEngineTest {
 
-    @Inject
+    private static final String SSN_PATTERN = "(?<![\\d\\p{IsAlphabetic}]-?)"
+            + "(?>(?!000)(?:[0-6][0-4]\\d)-(?!00)\\d{2}-(?!0000)\\d{4})"
+            + "(?!-?[\\d\\p{IsAlphabetic}])";
+
     private ObfuscationEngine obfuscationEngine;
 
-    @Inject
     private Configuration configuration;
 
-    @Before
+    @BeforeEach
     public void setUp() {
+        this.configuration = new Configuration();
         this.configuration.setObfuscationEnabled(true);
+        this.configuration.setSensitiveRegularExpressions(Collections.singletonList(
+                new SensitiveRegularExpression(1,
+                        "Social Security Number",
+                        Pattern.compile(SSN_PATTERN),
+                        1)
+        ));
+        this.configuration.setWhiteRegularExpressions(Collections.emptyList());
+
+        ConfigurationService configurationService = new ConfigurationService(
+                configuration,
+                new NoOpConfigurationProvider(),
+                new ConfigurationSerializer(),
+                new ResourceLoader());
+        WhiteListService whiteListService = new WhiteListService(configuration);
+        Set<SensitiveDataSearcher> searchers = Collections.singleton(
+                new RegularExpressionSensitiveDataSearcher(configuration, whiteListService));
+
+        this.obfuscationEngine = new ObfuscationEngine(configurationService, searchers, new SensitiveDataResolver());
     }
 
     @Test
     public void simpleSSNObfuscationTest() {
         ObfuscationResponse obfuscationResponse = obfuscationEngine.obfuscateText(new ObfuscationRequest("123-12-1234"));
-        Assert.assertEquals("********", obfuscationResponse.getObfuscatedText());
+        assertEquals("********", obfuscationResponse.getObfuscatedText());
     }
 
     @Test
@@ -45,7 +70,7 @@ public class ObfuscationEngineTest {
         configuration.setSensitiveRegularExpressions(getConflictedSensitiveRegularExpressions(1, 1));
         ObfuscationResponse obfuscationResponse = obfuscationEngine.obfuscateText(new ObfuscationRequest("121"));
 
-        Assert.assertEquals(StaticStarTextReplacer.OBFUSCATED, obfuscationResponse.getObfuscatedText());
+        assertEquals(StaticStarTextReplacer.OBFUSCATED, obfuscationResponse.getObfuscatedText());
     }
 
     @Test
@@ -53,7 +78,7 @@ public class ObfuscationEngineTest {
         configuration.setSensitiveRegularExpressions(getConflictedSensitiveRegularExpressions(2, 1));
         ObfuscationResponse obfuscationResponse = obfuscationEngine.obfuscateText(new ObfuscationRequest("121"));
 
-        Assert.assertEquals(StaticStarTextReplacer.OBFUSCATED + "1", obfuscationResponse.getObfuscatedText());
+        assertEquals(StaticStarTextReplacer.OBFUSCATED + "1", obfuscationResponse.getObfuscatedText());
     }
 
     @Test
@@ -61,15 +86,29 @@ public class ObfuscationEngineTest {
         configuration.setSensitiveRegularExpressions(getConflictedSensitiveRegularExpressions(1, 2));
         ObfuscationResponse obfuscationResponse = obfuscationEngine.obfuscateText(new ObfuscationRequest("121"));
 
-        Assert.assertEquals(1 + StaticStarTextReplacer.OBFUSCATED, obfuscationResponse.getObfuscatedText());
+        assertEquals(1 + StaticStarTextReplacer.OBFUSCATED, obfuscationResponse.getObfuscatedText());
     }
 
     private List<SensitiveRegularExpression> getConflictedSensitiveRegularExpressions(int leftImportance,
                                                                                       int rightImportance) {
-        return Lists.newArrayList(
+        return Arrays.asList(
                 new SensitiveRegularExpression(1, "Left", Pattern.compile("12"), leftImportance),
                 new SensitiveRegularExpression(2, "Right", Pattern.compile("21"), rightImportance)
         );
     }
-}
 
+    private static class NoOpConfigurationProvider implements ConfigurationProvider {
+
+        @Override
+        public void uploadConfiguration(Configuration configuration) {
+        }
+
+        @Override
+        public void storeConfiguration(Configuration configuration) {
+        }
+
+        @Override
+        public void restoreConfiguration(Configuration configuration) {
+        }
+    }
+}

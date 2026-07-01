@@ -4,7 +4,6 @@ import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.SensitiveRegularExpression;
 import com.netcracker.graylog2.plugin.obfuscation.WhiteListService;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
-import org.apache.commons.collections4.CollectionUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -53,7 +52,7 @@ public class RegularExpressionSensitiveDataSearcher implements SensitiveDataSear
             }
         }
 
-        if (CollectionUtils.isNotEmpty(list)) {
+        if (!list.isEmpty()) {
             return list;
         } else {
             return Collections.emptyList();
@@ -71,4 +70,3 @@ public class RegularExpressionSensitiveDataSearcher implements SensitiveDataSear
         return regularExpressions.stream().map(Finder.class::cast).collect(Collectors.toList());
     }
 }
-

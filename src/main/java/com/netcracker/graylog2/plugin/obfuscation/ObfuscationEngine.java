@@ -5,7 +5,6 @@ import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationSer
 import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacer;
 import com.netcracker.graylog2.plugin.obfuscation.search.SensitiveData;
 import com.netcracker.graylog2.plugin.obfuscation.search.SensitiveDataSearcher;
-import org.apache.commons.collections4.CollectionUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -40,7 +39,7 @@ public class ObfuscationEngine {
             List<List<SensitiveData>> searchResults = new ArrayList<>(searchers.size());
             for (SensitiveDataSearcher searcher : searchers) {
                 List<SensitiveData> searchResult = searcher.search(request);
-                if (CollectionUtils.isNotEmpty(searchResult)) {
+                if (!searchResult.isEmpty()) {
                     searchResults.add(searchResult);
                 }
             }
@@ -92,4 +91,3 @@ public class ObfuscationEngine {
         return stringBuilder.toString();
     }
 }
-

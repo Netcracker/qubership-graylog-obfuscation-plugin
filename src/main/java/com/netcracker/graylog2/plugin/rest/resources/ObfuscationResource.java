@@ -6,8 +6,6 @@ import com.netcracker.graylog2.plugin.obfuscation.ObfuscationEngine;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationResponse;
 import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.graylog2.audit.jersey.NoAuditEvent;
 import org.graylog2.plugin.rest.PluginRestResource;
@@ -32,7 +30,6 @@ import java.util.stream.Collectors;
 
 @RequiresAuthentication
 @Path("/obfuscation")
-@Api(value = "Obfuscation API")
 public class ObfuscationResource extends RestResource implements PluginRestResource {
 
     private final ObfuscationEngine obfuscationEngine;
@@ -45,7 +42,6 @@ public class ObfuscationResource extends RestResource implements PluginRestResou
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    @ApiOperation(value = "Obfuscate text")
     @NoAuditEvent("I don't know what to write here")
     public Response doObfuscation(@NotNull String text) {
         ObfuscationRequest obfuscationRequest = new ObfuscationRequest(text);
@@ -56,7 +52,6 @@ public class ObfuscationResource extends RestResource implements PluginRestResou
     @GET
     @Path("/replacers")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation("Get all text replacers")
     @NoAuditEvent("I don't know what to write here")
     public Response getReplacers() {
         return Response.ok(Collections.singletonMap("text-replacers", TextReplacers.getAllTextReplacers()
@@ -72,7 +67,6 @@ public class ObfuscationResource extends RestResource implements PluginRestResou
     @Path("/regex/compile/test")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @ApiOperation("Compile test of regular expressions")
     @NoAuditEvent("I don't know what to write here")
     public Response testCompileRegularExpressions(String json) {
         JSONArray expressions = new JSONObject(json).getJSONArray("expressions");
@@ -93,4 +87,3 @@ public class ObfuscationResource extends RestResource implements PluginRestResou
         return Response.ok(compilationFailedExpressions).build();
     }
 }
-

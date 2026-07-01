@@ -5,9 +5,6 @@ import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationProvider;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationService;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.SynchronizationMode;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.graylog2.audit.jersey.NoAuditEvent;
 import org.graylog2.plugin.rest.PluginRestResource;
@@ -35,7 +32,6 @@ import java.util.Map;
  */
 @RequiresAuthentication
 @Path("/obfuscation/configuration")
-@Api(value = "Obfuscation Configuration Plugin API")
 public class ConfigurationResource extends RestResource implements PluginRestResource {
 
     private static final Logger log = LoggerFactory.getLogger(ConfigurationResource.class);
@@ -49,7 +45,6 @@ public class ConfigurationResource extends RestResource implements PluginRestRes
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get current configuration")
     public Response getConfiguration() {
         Map<String, Object> serializedConfiguration = configurationService.getSerializedConfiguration();
         JSONObject jsonObject = new JSONObject(serializedConfiguration);
@@ -61,7 +56,6 @@ public class ConfigurationResource extends RestResource implements PluginRestRes
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @NoAuditEvent("I don't know what to write here")
-    @ApiOperation(value = "Install new configuration")
     public Response installConfiguration(@NotNull String jsonConfiguration) {
         try {
             JSONObject jsonObject = new JSONObject(jsonConfiguration);
@@ -85,10 +79,7 @@ public class ConfigurationResource extends RestResource implements PluginRestRes
     @Produces(MediaType.TEXT_PLAIN)
     @NoAuditEvent("I don't know what to write here")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @ApiOperation(value = "Synchronized configuration")
-    public Response syncConfiguration(@ApiParam(name = "sync_mode",
-            value = "The mode which used to sync configuration",
-            required = true) @FormParam("sync_mode") @NotNull SynchronizationMode syncMode) {
+    public Response syncConfiguration(@FormParam("sync_mode") @NotNull SynchronizationMode syncMode) {
         try {
             configurationService.synchronizeConfiguration(syncMode);
             return Response.ok("Success").build();
@@ -103,7 +94,6 @@ public class ConfigurationResource extends RestResource implements PluginRestRes
     @PUT
     @Path("/reset")
     @Produces(MediaType.TEXT_PLAIN)
-    @ApiOperation(value = "Reset configuration")
     @NoAuditEvent("I don't know what to write here")
     public Response resetConfiguration() {
         try {
@@ -120,7 +110,6 @@ public class ConfigurationResource extends RestResource implements PluginRestRes
     @PUT
     @Path("/restore")
     @Produces(MediaType.TEXT_PLAIN)
-    @ApiOperation(value = "Restore configuration")
     @NoAuditEvent("I don't know what to write here")
     public Response restoreConfiguration() {
         ConfigurationProvider configurationProvider = configurationService.getConfigurationProvider();
@@ -136,4 +125,3 @@ public class ConfigurationResource extends RestResource implements PluginRestRes
         }
     }
 }
-

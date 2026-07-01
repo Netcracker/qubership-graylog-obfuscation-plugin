@@ -1,7 +1,6 @@
 package com.netcracker.graylog2.plugin.obfuscation;
 
 import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
-import org.apache.commons.collections4.CollectionUtils;
 import org.graylog2.plugin.Message;
 import org.graylog2.plugin.streams.Stream;
 
@@ -25,7 +24,7 @@ public class StreamMessageFilter implements MessageFilter {
     public boolean isAccepted(Message message) {
         Set<String> streams = getMessageStreamTitles(message);
 
-        if (CollectionUtils.isNotEmpty(streams)) {
+        if (!streams.isEmpty()) {
             List<String> streamTitles = configuration.getStreamTitles();
             for (String streamTitle : streamTitles) {
                 if (streams.contains(streamTitle)) {
@@ -50,4 +49,3 @@ public class StreamMessageFilter implements MessageFilter {
         return streamTitles;
     }
 }
-

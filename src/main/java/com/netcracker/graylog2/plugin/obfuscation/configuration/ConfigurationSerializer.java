@@ -9,13 +9,14 @@ import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacer;
 import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacers;
 import com.netcracker.graylog2.plugin.utils.ParameterException;
 import com.netcracker.graylog2.plugin.utils.ParameterExtractor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Singleton;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 @Singleton
@@ -163,14 +164,12 @@ public class ConfigurationSerializer {
     }
 
     private List<String> deserializeStreamTitles(List<String> streamTitles) {
+        Set<String> uniqueStreamTitles = new HashSet<>();
         for (String streamTitle : streamTitles) {
             if (StringUtils.isEmpty(streamTitle)) {
                 throw new ObfuscationSystemException("The stream title cannot be empty");
             }
-        }
-
-        for (String streamTitle : streamTitles) {
-            if (CollectionUtils.select(streamTitles, title -> StringUtils.equals(title, streamTitle)).size() > 1) {
+            if (!uniqueStreamTitles.add(streamTitle)) {
                 throw new ObfuscationSystemException("The stream titles have duplicate title \"" + streamTitle + "\"");
             }
         }
@@ -179,14 +178,12 @@ public class ConfigurationSerializer {
     }
 
     private List<String> deserializeFieldNames(List<String> fieldNames) {
+        Set<String> uniqueFieldNames = new HashSet<>();
         for (String fieldName : fieldNames) {
             if (StringUtils.isEmpty(fieldName)) {
                 throw new ObfuscationSystemException("The field name cannot be empty");
             }
-        }
-
-        for (String fieldName : fieldNames) {
-            if (CollectionUtils.select(fieldNames, name -> StringUtils.equals(name, fieldName)).size() > 1) {
+            if (!uniqueFieldNames.add(fieldName)) {
                 throw new ObfuscationSystemException("The field names have duplicate name \"" + fieldName + "\"");
             }
         }
@@ -204,4 +201,3 @@ public class ConfigurationSerializer {
         }
     }
 }
-

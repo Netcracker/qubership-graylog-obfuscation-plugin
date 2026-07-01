@@ -1,0 +1,42 @@
+{
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "description": "Keep the plugin on the Graylog 5.x line.",
+      "matchPackageNames": [
+        "org.graylog.plugins:graylog-plugin-parent",
+        "org.graylog2:graylog2-server",
+        "graylog/graylog"
+      ],
+      "allowedVersions": "/^5\\./",
+      "groupName": "Graylog 5.x"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "GRAYLOG_VERSION:\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "maven",
+      "depNameTemplate": "org.graylog2:graylog2-server",
+      "versioningTemplate": "maven"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)src/integration-test/graylog/docker-compose\\.yml$/"
+      ],
+      "matchStrings": [
+        "graylog/graylog:\\$\\{GRAYLOG_VERSION:-(?<currentValue>[^}]+)\\}"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "graylog/graylog"
+    }
+  ]
+}
