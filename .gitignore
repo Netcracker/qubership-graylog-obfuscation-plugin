@@ -32,3 +32,8 @@ work/
 
 node/
 node_modules/
+.m2/
+.graylog/
+node_modules/
+npm-debug.log*
+yarn-error.log*

@@ -1,7 +1,7 @@
 import '../css/ObfuscationPlugin.css'
 import React from 'react';
 import {HelpBlock} from 'react-bootstrap';
-import {Icon} from 'components/common';
+import IconButton from 'components/common/IconButton';
 
 export class ObjectsTable extends React.Component {
 
@@ -27,7 +27,7 @@ export class ObjectsTable extends React.Component {
             <tr>
                 {this.renderColumns(element, object)}
                 <td className="change-cell">
-                    <Icon name="trash" style={{cursor: 'pointer'}} size="2x" onClick={this._onRemove(index)}/>
+                    <IconButton name="delete" title="Remove row" onClick={this._onRemove(index)}/>
                 </td>
             </tr>
         );
@@ -80,10 +80,7 @@ export class ObjectsTable extends React.Component {
                 <tr>
                     <td colSpan={this.getColumnsCount()}/>
                     <td className="change-cell">
-                        <Icon name="plus-square"
-                              style={{cursor: 'pointer'}}
-                              size="2x"
-                              onClick={this.props.onAddElement}/>
+                        <IconButton name="add" title="Add row" onClick={this.props.onAddElement}/>
                     </td>
                 </tr>
                 </tfoot>
@@ -92,4 +89,3 @@ export class ObjectsTable extends React.Component {
         );
     }
 }
-

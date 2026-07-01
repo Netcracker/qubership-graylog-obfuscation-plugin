@@ -1,6 +1,7 @@
 # Graylog Obfuscation Plugin
 
-A Graylog plugin for automatic analysis and obfuscation of sensitive data in log messages using configurable regular expressions.
+A Graylog plugin for automatic analysis and obfuscation of sensitive data in log messages using configurable regular
+expressions.
 
 [![Release](https://img.shields.io/github/v/release/Netcracker/qubership-graylog-obfuscation-plugin?style=flat-square)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/releases)
 [![Docs](https://img.shields.io/website?url=https%3A//github.com/Netcracker/qubership-graylog-obfuscation-plugin/tree/main/docs&label=docs&style=flat-square)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/tree/main/docs)
@@ -23,16 +24,17 @@ A Graylog plugin for automatic analysis and obfuscation of sensitive data in log
 ## Requirements
 
 ### Runtime Requirements
-- **Graylog Server**: Version 3.3.0 or higher
-- **Java**: OpenJDK 8 or higher
+- **Graylog Server**: Version 5.2.x
+- **Java**: OpenJDK 17
 - **MongoDB**: For configuration storage
 
 ### Development Requirements
-- **Java**: OpenJDK 8 or higher
-- **Maven**: 3.6.0 or higher
-- **Node.js**: 12.16.1 or higher
+
+- **Java**: OpenJDK 17
+- **Maven**: 3.9.0 or higher
+- **Node.js**: 20, or another version compatible with the Graylog web interface checkout used for frontend builds
 - **Yarn**: 1.22.0 or higher
-- **Graylog Sources**: Required for building (see development guide)
+- **Git**: Required for downloading the matching Graylog web sources
 
 ## Installation
 
@@ -157,15 +159,26 @@ Configuration is stored in MongoDB and can be managed through either the web int
 ### Running Tests
 
 ```bash
-# Run all tests
-mvn test
+# Run backend unit tests
+make backend-test
 
-# Run with coverage
-mvn test jacoco:report
+# Run frontend unit tests
+make frontend-test
 
-# Run specific test class
-mvn test -Dtest=ObfuscationEngineTest
+# Build the distributable JAR with frontend assets
+make package
+
+# Run the Docker-based Graylog smoke test, including UI bundle checks
+make smoke
 ```
+
+For backend-only work, Maven can still be run directly with `-Dskip.web=true`. That mode intentionally skips the web UI
+build and does not validate frontend changes.
+
+### Version Updates
+
+Use `scripts/set-plugin-version.sh <new-version>` when preparing a plugin release. Graylog dependency updates are kept on
+the 5.x line by `renovate.json`.
 
 ### Development Linting
 
@@ -188,7 +201,7 @@ For detailed development setup, see the [Development Guide](docs/development.md)
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes following the coding standards
-4. Run tests and linting: `mvn test && docker run ...` (see Testing section)
+4. Run tests and linting: `make backend-test && make frontend-test && make smoke`
 5. Commit your changes: `git commit -m 'Add amazing feature'`
 6. Push to the branch: `git push origin feature/amazing-feature`
 7. Open a Pull Request

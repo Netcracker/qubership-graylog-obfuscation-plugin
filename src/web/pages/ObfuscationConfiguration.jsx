@@ -1,13 +1,12 @@
 import '../css/ObfuscationPlugin.css'
 import React from 'react';
-import StoreProvider from 'injection/StoreProvider';
-import request from 'superagent-bluebird-promise';
+import fetch from 'logic/rest/FetchProvider';
 
 import {Modal} from 'react-bootstrap';
-import {Button} from 'components/graylog';
-import {BootstrapModalWrapper, Input} from 'components/bootstrap';
+import {BootstrapModalWrapper, Button, Input} from 'components/bootstrap';
 import {OneFieldObjectsTable} from './OneFieldObjectsTable';
-import {IfPermitted, LoadingIndicator} from 'components/common';
+import IfPermitted from 'components/common/IfPermitted';
+import LoadingIndicator from 'components/common/LoadingIndicator';
 import {RegularExpressionsObjectsTable} from './RegularExpressionsObjectsTable';
 
 export class ObfuscationConfiguration extends React.Component {
@@ -50,13 +49,8 @@ export class ObfuscationConfiguration extends React.Component {
             this.regexes = expressions;
             clearTimeout(this.regexTestCompileRequestId);
             this.regexTestCompileRequestId = setTimeout(() =>
-                request.post(this.prefixURL + '/obfuscation/regex/compile/test')
-                    .send({expressions})
-                    .set('X-Requested-With', 'XMLHttpRequest')
-                    .set('X-Requested-By', 'XMLHttpRequest')
-                    .set('Content-Type', 'application/json')
-                    .auth(this.sessionId(), 'session')
-                    .then(result => this.updateState({regexCompileStatus: result.body})), 500);
+                fetch('POST', this.prefixURL + '/obfuscation/regex/compile/test', {expressions})
+                    .then(result => this.updateState({regexCompileStatus: result})), 500);
         }
     }
 
@@ -82,15 +76,15 @@ export class ObfuscationConfiguration extends React.Component {
 
         Promise.all([
             this.getWithPrefix('/obfuscation/configuration')
-                .then(result => this.updateState({...result.body})),
+                .then(result => this.updateState({...result})),
             this.get('/api/streams')
-                .then(result => this.updateState({streams: result.body.streams.map(stream => stream.title)})),
+                .then(result => this.updateState({streams: result.streams.map(stream => stream.title)})),
             this.get('/api/system/fields')
-                .then(result => this.updateState({fields: result.body.fields})),
+                .then(result => this.updateState({fields: result.fields})),
             this.getWithPrefix('/obfuscation/replacers')
-                .then(result => this.updateState({'text-replacers': result.body['text-replacers']})),
+                .then(result => this.updateState({'text-replacers': result['text-replacers']})),
             this.get('/api/system/messageprocessors/config')
-                .then(result => this.updateState({messageProcessors: result.body})),
+                .then(result => this.updateState({messageProcessors: result})),
         ]).then(() => {
             let updatedState = {isReady: true};
             let checkResult = this.checkMessageProcessors();
@@ -102,28 +96,16 @@ export class ObfuscationConfiguration extends React.Component {
         });
     }
 
-    sessionId() {
-        return StoreProvider.getStore('Session').getSessionId();
-    }
-
     getWithPrefix(url) {
         return this.get(this.prefixURL + url);
     }
 
     get(url) {
-        return request.get(url)
-            .set('X-Requested-With', 'XMLHttpRequest')
-            .set('X-Requested-By', 'XMLHttpRequest')
-            .auth(this.sessionId(), 'session');
+        return fetch('GET', url);
     }
 
     installConfiguration() {
-        return request.post(this.prefixURL + '/obfuscation/configuration')
-            .send(this.getConfiguration())
-            .set('X-Requested-With', 'XMLHttpRequest')
-            .set('X-Requested-By', 'XMLHttpRequest')
-            .set('Content-Type', 'application/json')
-            .auth(this.sessionId(), 'session');
+        return fetch('POST', this.prefixURL + '/obfuscation/configuration', this.getConfiguration());
     }
 
     openModal() {
@@ -140,15 +122,12 @@ export class ObfuscationConfiguration extends React.Component {
     saveConfig() {
         return () => this.installConfiguration()
             .then(() => this.modal.close())
-            .catch(error => this.updateState({error: error.res.text}));
+            .catch(error => this.updateState({error: error.additional?.body || error.message}));
     }
 
     resetConfig() {
         return () => {
-            request.put(this.prefixURL + '/obfuscation/configuration/reset')
-                .set('X-Requested-With', 'XMLHttpRequest')
-                .set('X-Requested-By', 'XMLHttpRequest')
-                .auth(this.sessionId(), 'session')
+            fetch('PUT', this.prefixURL + '/obfuscation/configuration/reset')
                 .then(this.reloadConfiguration);
         };
     }
@@ -572,4 +551,3 @@ export class ObfuscationConfiguration extends React.Component {
 }
 
 ObfuscationConfiguration.displayName = 'Obfuscation Configuration';
-

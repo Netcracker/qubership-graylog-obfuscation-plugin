@@ -1,13 +1,14 @@
 {
   "name": "graylog-obfuscation-plugin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "repository": {
     "type": "git",
     "url": "https://github.com/Netcracker/qubership-graylog-obfuscation-plugin"
   },
   "scripts": {
-    "build": "webpack --bail"
+    "build": "webpack --bail",
+    "test": "jest --config jest.config.js"
   },
   "keywords": [
     "graylog",
@@ -18,8 +19,13 @@
   "license": "GPL-3",
   "dependencies": {},
   "devDependencies": {
-    "graylog-web-plugin": "file:../graylog2-server/graylog2-web-interface/packages/graylog-web-plugin",
-    "superagent": "^10.3.0",
-    "superagent-bluebird-promise": "^4.1.0"
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "babel-jest": "^29.7.0",
+    "graylog-web-plugin": "file:.graylog/graylog2-server/graylog2-web-interface/packages/graylog-web-plugin",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }
