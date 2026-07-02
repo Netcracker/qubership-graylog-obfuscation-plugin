@@ -29,9 +29,9 @@ if [[ -z "${plugin_jar}" ]]; then
 fi
 
 plugin_module="plugin.com.netcracker.graylog2.plugin.ObfuscationPlugin.module.json"
-plugin_bundle="$(jar tf "${plugin_jar}" \
-    | grep -E '^plugin\.com\.netcracker\.graylog2\.plugin\.ObfuscationPlugin\.[^.]+\.js$' \
-    | head -n 1)"
+plugin_bundle="$(jar tf "${plugin_jar}" |
+    grep -E '^plugin\.com\.netcracker\.graylog2\.plugin\.ObfuscationPlugin\.[^.]+\.js$' |
+    head -n 1)"
 
 if ! jar tf "${plugin_jar}" | grep -q "^${plugin_module}$"; then
     echo "Plugin JAR does not contain the frontend module manifest ${plugin_module}." >&2
@@ -50,6 +50,7 @@ trap cleanup EXIT
 
 export PLUGIN_JAR="${plugin_jar}"
 export GRAYLOG_HTTP_PORT="${graylog_port}"
+export GRAYLOG_PASSWORD_SECRET="${GRAYLOG_PASSWORD_SECRET:-graylog-smoke-test-secret-graylog-smoke-test-secret-graylog-smoke-test-secret}"
 export GRAYLOG_ROOT_PASSWORD_SHA2="${GRAYLOG_ROOT_PASSWORD_SHA2:-$(printf '%s' "${root_password}" | sha256sum | awk '{print $1}')}"
 
 docker compose -p "${project_name}" -f "${compose_file}" up -d
@@ -91,21 +92,25 @@ if ! grep -q 'com.netcracker.graylog2.plugin' <<<"${plugin_bundle_js}"; then
     exit 1
 fi
 
-configuration='{
-  "is-obfuscation-enabled": true,
-  "text-replacer": "Static Star Replacer",
-  "stream-titles": ["Audit logs"],
-  "field-names": ["message"],
-  "sensitive-regular-expressions": [
-    {
-      "id": 1,
-      "name": "Social Security Number",
-      "pattern": "(?<![\\d\\p{IsAlphabetic}]-?)(?>(?!000)(?:[0-6][0-4]\\d)-(?!00)\\d{2}-(?!0000)\\d{4})(?!-?[\\d\\p{IsAlphabetic}])",
-      "importance": 1
-    }
-  ],
-  "white-regular-expressions": []
-}'
+set +e
+read -r -d '' configuration <<'JSON'
+{
+    "is-obfuscation-enabled": true,
+    "text-replacer": "Static Star Replacer",
+    "stream-titles": ["Audit logs"],
+    "field-names": ["message"],
+    "sensitive-regular-expressions": [
+        {
+            "id": 1,
+            "name": "Social Security Number",
+            "pattern": "(?<![\\d\\p{IsAlphabetic}]-?)(?>(?!000)(?:[0-6][0-4]\\d)-(?!00)\\d{2}-(?!0000)\\d{4})(?!-?[\\d\\p{IsAlphabetic}])",
+            "importance": 1
+        }
+    ],
+    "white-regular-expressions": []
+}
+JSON
+set -e
 
 "${curl_local[@]}" -fsS -u "${auth}" -H 'X-Requested-By: graylog-smoke-test' -H 'Content-Type: application/json' \
     -X POST --data "${configuration}" \

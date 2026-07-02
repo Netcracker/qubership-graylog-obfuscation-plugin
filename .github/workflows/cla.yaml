@@ -10,7 +10,29 @@ permissions:
   contents: read
 
 jobs:
+  prepare-config:
+    runs-on: ubuntu-latest
+    outputs:
+      restricted-actor: ${{ steps.resolve.outputs.restricted-actor }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Resolve restricted actor
+        id: resolve
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          restricted=false
+          if [ -f .github/config/build-config.yaml ] && grep -Fxq "  - ${ACTOR}" .github/config/build-config.yaml; then
+            restricted=true
+          fi
+          echo "restricted-actor=${restricted}" >> "$GITHUB_OUTPUT"
+
   CLAAssistant:
+    needs: prepare-config
+    if: ${{ needs.prepare-config.outputs.restricted-actor != 'true' }}
     permissions:
       actions: write
       contents: write
@@ -25,10 +47,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PERSONAL_ACCESS_TOKEN: ${{ secrets.CLA_ACCESS_TOKEN }}
         with:
-          path-to-signatures: 'signatures/version1/cla.json'
-          path-to-document: 'https://github.com/Netcracker/qubership-workflow-hub/blob/release/v2.2.0/CLA/cla.md'
+          path-to-signatures: "signatures/version1/cla.json"
+          path-to-document: "https://github.com/Netcracker/qubership-workflow-hub/blob/release/v2.2.0/CLA/cla.md"
           # branch should not be protected
-          branch: 'main'
+          branch: "main"
           allowlist: NetcrackerCLPLCI,web-flow,bot*
           remote-repository-name: cla-storage
           remote-organization-name: Netcracker

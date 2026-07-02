@@ -1,7 +1,7 @@
 # Graylog Obfuscation Plugin
 
-A Graylog plugin for automatic analysis and obfuscation of sensitive data in log messages using configurable regular
-expressions.
+A Graylog plugin for automatic analysis and obfuscation of sensitive data in log
+messages using configurable regular expressions.
 
 [![Release](https://img.shields.io/github/v/release/Netcracker/qubership-graylog-obfuscation-plugin?style=flat-square)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/releases)
 [![Docs](https://img.shields.io/website?url=https%3A//github.com/Netcracker/qubership-graylog-obfuscation-plugin/tree/main/docs&label=docs&style=flat-square)](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/tree/main/docs)
@@ -12,7 +12,8 @@ expressions.
 ## Features
 
 - **Automatic sensitive data detection** using configurable regular expressions
-- **Flexible obfuscation strategies** with pluggable text replacers (e.g., static star replacer)
+- **Flexible obfuscation strategies** with pluggable text replacers (e.g.,
+  static star replacer)
 - **Stream-based filtering** - apply obfuscation to specific Graylog streams
 - **Field-level granularity** - target specific message fields for obfuscation
 - **White-listing support** - exclude certain patterns from obfuscation
@@ -24,6 +25,7 @@ expressions.
 ## Requirements
 
 ### Runtime Requirements
+
 - **Graylog Server**: Version 5.2.x
 - **Java**: OpenJDK 17
 - **MongoDB**: For configuration storage
@@ -32,30 +34,36 @@ expressions.
 
 - **Java**: OpenJDK 17
 - **Maven**: 3.9.0 or higher
-- **Node.js**: 20, or another version compatible with the Graylog web interface checkout used for frontend builds
+- **Node.js**: 20, or another version compatible with the Graylog web interface
+  checkout used for frontend builds
 - **Yarn**: 1.22.0 or higher
 - **Git**: Required for downloading the matching Graylog web sources
 
 ## Installation
 
-1. **Download the plugin JAR** from the [releases page](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/releases)
+1. **Download the plugin JAR** from the
+   [releases page](https://github.com/Netcracker/qubership-graylog-obfuscation-plugin/releases)
 
 2. **Copy to Graylog plugins directory**:
+
    ```bash
    sudo cp graylog-obfuscation-plugin-*.jar /var/lib/graylog/plugins/
    ```
 
 3. **Set proper permissions**:
+
    ```bash
    sudo chown graylog:graylog /var/lib/graylog/plugins/graylog-obfuscation-plugin-*.jar
    ```
 
 4. **Restart Graylog server**:
+
    ```bash
    sudo systemctl restart graylog-server
    ```
 
-5. **Verify installation** by checking the Graylog web interface under System > Plugins
+5. **Verify installation** by checking the Graylog web interface under System >
+   Plugins
 
 ## Usage
 
@@ -99,11 +107,20 @@ The plugin can be configured through:
 
 ### REST API Endpoints
 
-- **GET** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration` - Get current configuration
-- **POST** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration` - Update configuration
-- **PUT** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/sync` - Sync with default
-- **PUT** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/reset` - Reset to default
-- **POST** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation` - Test obfuscation
+- **GET**
+  `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration` - Get
+  current configuration
+- **POST**
+  `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration` -
+  Update configuration
+- **PUT**
+  `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/sync` -
+  Sync with default
+- **PUT**
+  `/api/plugins/com.netcracker.graylog2.plugin/obfuscation/configuration/reset` -
+  Reset to default
+- **POST** `/api/plugins/com.netcracker.graylog2.plugin/obfuscation` - Test
+  obfuscation
 
 ### Configuration Parameters
 
@@ -114,17 +131,24 @@ The plugin can be configured through:
 - `sensitive-regular-expressions`: Patterns for sensitive data detection
 - `white-regular-expressions`: Patterns to exclude from obfuscation
 
-For detailed configuration options, see the [Configuration Guide](docs/configuration_guide.md).
+For detailed configuration options, see the
+[Configuration Guide](docs/configuration_guide.md).
 
 ## API Reference
 
 ### OpenAPI Specification
-Complete API documentation is available in [docs/api/openapi.yaml](docs/api/openapi.yaml).
+
+Complete API documentation is available in
+[docs/api/openapi.yaml](docs/api/openapi.yaml).
 
 ### Postman Collection
-Import the [Postman collection](docs/postman/Graylog-Obfuscation-Plugin.postman_collection.json) for easy API testing.
+
+Import the
+[Postman collection](docs/postman/Graylog-Obfuscation-Plugin.postman_collection.json)
+for easy API testing.
 
 ### Documentation
+
 - [Installation Guide](docs/installation.md)
 - [Configuration Guide](docs/configuration_guide.md)
 - [Development Guide](docs/development.md)
@@ -147,12 +171,15 @@ flowchart LR
     C --> J[Processed<br/>Logs]
 ```
 
-The plugin integrates with Graylog's message processing pipeline through the MessageProcessor interface. It consists of two main components:
+The plugin integrates with Graylog's message processing pipeline through the
+MessageProcessor interface. It consists of two main components:
 
 1. **Obfuscation Engine** - Core logic for pattern matching and text replacement
-2. **Graylog Integration** - Plugin interface, REST API, and web UI for configuration management
+2. **Graylog Integration** - Plugin interface, REST API, and web UI for
+   configuration management
 
-Configuration is stored in MongoDB and can be managed through either the web interface or REST API endpoints.
+Configuration is stored in MongoDB and can be managed through either the web
+interface or REST API endpoints.
 
 ## Testing
 
@@ -172,13 +199,14 @@ make package
 make smoke
 ```
 
-For backend-only work, Maven can still be run directly with `-Dskip.web=true`. That mode intentionally skips the web UI
-build and does not validate frontend changes.
+For backend-only work, Maven can still be run directly with `-Dskip.web=true`.
+That mode intentionally skips the web UI build and does not validate frontend
+changes.
 
 ### Version Updates
 
-Use `scripts/set-plugin-version.sh <new-version>` when preparing a plugin release. Graylog dependency updates are kept on
-the 5.x line by `renovate.json`.
+Use `scripts/set-plugin-version.sh <new-version>` when preparing a plugin
+release. Graylog dependency updates are kept on the 5.x line by `renovate.json`.
 
 ### Development Linting
 
@@ -194,20 +222,24 @@ docker run \
   ghcr.io/super-linter/super-linter:slim-$(sed -nE 's#.*uses:\s+super-linter/super-linter/slim@([^\s]+).*#\1#p' .github/workflows/super-linter.yaml)
 ```
 
-For detailed development setup, see the [Development Guide](docs/development.md).
+For detailed development setup, see the
+[Development Guide](docs/development.md).
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes following the coding standards
-4. Run tests and linting: `make backend-test && make frontend-test && make smoke`
+4. Run tests and linting:
+   `make backend-test && make frontend-test && make smoke`
 5. Commit your changes: `git commit -m 'Add amazing feature'`
 6. Push to the branch: `git push origin feature/amazing-feature`
 7. Open a Pull Request
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of
+conduct and the process for submitting pull requests.
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the
+[LICENSE](LICENSE) file for details.

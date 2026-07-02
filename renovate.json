@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "packageRules": [
     {
       "description": "Keep the plugin on the Graylog 5.x line.",
@@ -17,12 +15,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"
-      ],
-      "matchStrings": [
-        "GRAYLOG_VERSION:\\s*\"(?<currentValue>[^\"]+)\""
-      ],
+      "managerFilePatterns": ["/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"],
+      "matchStrings": ["GRAYLOG_VERSION:\\s*\"(?<currentValue>[^\"]+)\""],
       "datasourceTemplate": "maven",
       "depNameTemplate": "org.graylog2:graylog2-server",
       "versioningTemplate": "maven"

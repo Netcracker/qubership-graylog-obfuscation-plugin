@@ -20,7 +20,7 @@ services:
       - mongodb
       - opensearch
     environment:
-      GRAYLOG_PASSWORD_SECRET: integration-test-password-secret-with-at-least-sixty-four-characters
+      GRAYLOG_PASSWORD_SECRET: ${GRAYLOG_PASSWORD_SECRET:?Set GRAYLOG_PASSWORD_SECRET to a long random string}
       GRAYLOG_ROOT_PASSWORD_SHA2: ${GRAYLOG_ROOT_PASSWORD_SHA2:?Set GRAYLOG_ROOT_PASSWORD_SHA2 to the SHA-256 password hash}
       GRAYLOG_HTTP_BIND_ADDRESS: 0.0.0.0:9000
       GRAYLOG_HTTP_EXTERNAL_URI: http://127.0.0.1:${GRAYLOG_HTTP_PORT:-19000}/

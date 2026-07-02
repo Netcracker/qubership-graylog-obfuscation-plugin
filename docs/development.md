@@ -1,9 +1,10 @@
 # Obfuscation Plugin Developer Guide
 
-This guide describes how to build, test, and run the Graylog Obfuscation Plugin locally.
+This guide describes how to build, test, and run the Graylog Obfuscation Plugin
+locally.
 
-The current development target is Graylog `5.2.x`. The plugin uses Graylog `5.2.12`, Java 17, and the
-Graylog `5.2.12` frontend plugin toolchain.
+The current development target is Graylog `5.2.x`. The plugin uses Graylog
+`5.2.12`, Java 17, and the Graylog `5.2.12` frontend plugin toolchain.
 
 ## Prerequisites
 
@@ -11,7 +12,8 @@ Have these tools available in your development environment:
 
 - JDK 17
 - Maven 3.9 or newer
-- Node.js 20, or another Node.js version compatible with the Graylog web interface checkout
+- Node.js 20, or another Node.js version compatible with the Graylog web
+  interface checkout
 - Yarn 1.22.x
 - Git
 - Docker with Docker Compose support, required for the integration smoke test
@@ -26,7 +28,8 @@ mvn -version
 
 ## Build Targets
 
-The repository provides a `Makefile` so local development and CI use the same entry points.
+The repository provides a `Makefile` so local development and CI use the same
+entry points.
 
 ```bash
 make backend-test
@@ -37,15 +40,16 @@ make package
 make smoke
 ```
 
-`make backend-test` and `make backend-package` pass `-Dskip.web=true` to Maven. That flag is only for backend work; it
-does not build or test the web UI.
+`make backend-test` and `make backend-package` pass `-Dskip.web=true` to Maven.
+That flag is only for backend work; it does not build or test the web UI.
 
-`make package` performs a clean backend build, prepares Graylog web sources, builds the plugin frontend, and packages a
-JAR containing the UI assets.
+`make package` performs a clean backend build, prepares Graylog web sources,
+builds the plugin frontend, and packages a JAR containing the UI assets.
 
 ## Graylog Web Sources
 
-The frontend build uses `graylog-web-plugin` directly from a local Graylog source checkout. The checkout is managed by:
+The frontend build uses `graylog-web-plugin` directly from a local Graylog
+source checkout. The checkout is managed by:
 
 ```bash
 scripts/update-graylog-web.sh
@@ -53,8 +57,10 @@ scripts/update-graylog-web.sh
 
 By default the script:
 
-1. Clones or updates Graylog from `https://github.com/Graylog2/graylog2-server.git`.
-2. Checks out the Graylog version from `<graylog.version>` in `pom.xml`, currently `5.2.12`.
+1. Clones or updates Graylog from
+   `https://github.com/Graylog2/graylog2-server.git`.
+2. Checks out the Graylog version from `<graylog.version>` in `pom.xml`,
+   currently `5.2.12`.
 3. Runs `yarn install --frozen-lockfile` in `graylog2-web-interface`.
 4. Builds the Graylog web vendor bundle required by plugin webpack builds.
 
@@ -67,7 +73,8 @@ GRAYLOG_SOURCE_DIR=/path/to/graylog2-server scripts/update-graylog-web.sh
 GRAYLOG_WEB_PREPARE_DEPS=false scripts/update-graylog-web.sh
 ```
 
-Downloaded Graylog sources live under `.graylog/` by default. That directory is ignored by Git.
+Downloaded Graylog sources live under `.graylog/` by default. That directory is
+ignored by Git.
 
 ## Unit Tests
 
@@ -89,8 +96,8 @@ Run frontend unit tests:
 make frontend-test
 ```
 
-The current frontend tests cover client-side validation in the configuration page. Add focused frontend tests when
-changing `src/web`.
+The current frontend tests cover client-side validation in the configuration
+page. Add focused frontend tests when changing `src/web`.
 
 ## Full Package
 
@@ -108,16 +115,18 @@ target/graylog-obfuscation-plugin-<version>.jar
 
 ## Version Updates
 
-The plugin version is stored in both `pom.xml` and `package.json`. Use the helper script when preparing a new plugin
-release:
+The plugin version is stored in both `pom.xml` and `package.json`. Use the
+helper script when preparing a new plugin release:
 
 ```bash
 scripts/set-plugin-version.sh 1.2.1
 ```
 
-The script updates the Maven project version and the npm package version without creating a Git tag.
+The script updates the Maven project version and the npm package version without
+creating a Git tag.
 
-Graylog versions are intentionally kept on the `5.x` line. Renovate is configured in `renovate.json` to update:
+Graylog versions are intentionally kept on the `5.x` line. Renovate is
+configured in `renovate.json` to update:
 
 - the Maven Graylog parent and server artifacts,
 - `GRAYLOG_VERSION` in GitHub Actions,
@@ -136,8 +145,8 @@ make smoke
 
 ## Integration Smoke Test
 
-The smoke test starts a real Graylog container with MongoDB and OpenSearch, mounts the built plugin JAR, and verifies
-backend and frontend integration.
+The smoke test starts a real Graylog container with MongoDB and OpenSearch,
+mounts the built plugin JAR, and verifies backend and frontend integration.
 
 Run:
 
@@ -154,12 +163,16 @@ scripts/graylog-smoke-test.sh
 The script performs these checks:
 
 1. Builds the plugin package.
-2. Verifies that the JAR contains the frontend module manifest and JavaScript bundle.
+2. Verifies that the JAR contains the frontend module manifest and JavaScript
+   bundle.
 3. Starts Docker Compose from `src/integration-test/graylog/docker-compose.yml`.
 4. Waits for `http://127.0.0.1:19000/api/system/lbstatus`.
-5. Calls `GET /api/system/plugins` and verifies that the obfuscation plugin is present.
-6. Fetches the Graylog index page and verifies that it references the plugin UI bundle.
-7. Fetches the plugin UI bundle from Graylog and verifies that it is the obfuscation plugin bundle.
+5. Calls `GET /api/system/plugins` and verifies that the obfuscation plugin is
+   present.
+6. Fetches the Graylog index page and verifies that it references the plugin UI
+   bundle.
+7. Fetches the plugin UI bundle from Graylog and verifies that it is the
+   obfuscation plugin bundle.
 8. Installs a minimal obfuscation configuration through the plugin REST API.
 9. Calls `POST /api/plugins/com.netcracker.graylog2.plugin/obfuscation`.
 10. Stops and removes the containers and volumes.
@@ -177,7 +190,8 @@ GRAYLOG_HTTP_PORT=19000 scripts/graylog-smoke-test.sh
 SMOKE_BUILD_TARGET=backend-package scripts/graylog-smoke-test.sh
 ```
 
-Use `SMOKE_BUILD_TARGET=backend-package` only after `make package` has already produced fresh frontend assets.
+Use `SMOKE_BUILD_TARGET=backend-package` only after `make package` has already
+produced fresh frontend assets.
 
 ## Manual Local Graylog Run
 
@@ -225,7 +239,7 @@ curl -u "${GRAYLOG_AUTH}" -H 'X-Requested-By: local-dev' -H 'Content-Type: text/
 Expected response contains:
 
 ```json
-{"obfuscated_text":"********"}
+{ "obfuscated_text": "********" }
 ```
 
 ## CI And Release
@@ -238,14 +252,18 @@ Expected response contains:
 - Docker-based Graylog smoke test with UI bundle verification,
 - artifact upload for the built JAR.
 
-On tag pushes matching `v*`, the workflow also creates or updates the matching GitHub Release and uploads the plugin
-JAR. The release artifact is the integration point expected by downstream plugin packaging, including
+On tag pushes matching `v*`, the workflow also creates or updates the matching
+GitHub Release and uploads the plugin JAR. The release artifact is the
+integration point expected by downstream plugin packaging, including
 `qubership-graylog-plugins-init`.
 
 ## Notes For Future Changes
 
-- Keep the Graylog parent version, `graylog.version`, Docker image tag, and Graylog source checkout aligned.
+- Keep the Graylog parent version, `graylog.version`, Docker image tag, and
+  Graylog source checkout aligned.
 - Backend-only changes should pass `make backend-test`.
 - Frontend changes should pass `make frontend-test` and `make frontend-build`.
-- Plugin registration, REST resources, dependency version changes, and UI wiring changes should pass `make smoke`.
-- REST resources must use `javax.ws.rs` and `javax.validation` APIs for Graylog 5.2.
+- Plugin registration, REST resources, dependency version changes, and UI wiring
+  changes should pass `make smoke`.
+- REST resources must use `javax.ws.rs` and `javax.validation` APIs for Graylog
+  5.2.

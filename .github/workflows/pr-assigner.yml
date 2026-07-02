@@ -11,7 +11,29 @@ permissions:
   contents: read
 
 jobs:
+  prepare-config:
+    runs-on: ubuntu-latest
+    outputs:
+      restricted-actor: ${{ steps.resolve.outputs.restricted-actor }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Resolve restricted actor
+        id: resolve
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          restricted=false
+          if [ -f .github/config/build-config.yaml ] && grep -Fxq "  - ${ACTOR}" .github/config/build-config.yaml; then
+            restricted=true
+          fi
+          echo "restricted-actor=${restricted}" >> "$GITHUB_OUTPUT"
+
   pr-auto-assign:
+    needs: prepare-config
+    if: ${{ needs.prepare-config.outputs.restricted-actor != 'true' }}
     runs-on: ubuntu-latest
 
     steps:

@@ -1,5 +1,4 @@
 ---
-
 # The workflow template for automatic PR labeler.
 # It requires to have a configuration file with labels and conditions to apply them.
 # The configuration file should be placed in the .github folder and named auto-labeler-config.yaml.
@@ -11,8 +10,7 @@ name: Automatic PR Labeler
 on:
   pull_request:
     branches: [main]
-    types:
-      [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize]
 
 permissions:
   pull-requests: write
@@ -20,8 +18,21 @@ permissions:
   issues: write
 
 jobs:
+  prepare-config:
+    runs-on: ubuntu-latest
+    outputs:
+      restricted-actor: ${{ steps.resolve.outputs.restricted-actor }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - id: resolve
+        uses: ./.github/actions/resolve-restricted-actor
+
   assign-labels:
-    if: (github.event.pull_request.merged == false) && (github.event.pull_request.user.login != 'dependabot[bot]') && (github.event.pull_request.user.login != 'github-actions[bot]')
+    needs: prepare-config
+    if: (github.event.pull_request.merged == false) && (needs.prepare-config.outputs.restricted-actor != 'true') && (github.event.pull_request.user.login != 'github-actions[bot]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
