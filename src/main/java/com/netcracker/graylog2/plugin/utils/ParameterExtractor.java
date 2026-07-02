@@ -2,12 +2,13 @@ package com.netcracker.graylog2.plugin.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.re2j.Pattern;
+import com.google.re2j.PatternSyntaxException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class ParameterExtractor {
 
@@ -34,7 +35,7 @@ public class ParameterExtractor {
 
     try {
       return RegularExpressionValidator.compile(rawPattern);
-    } catch (IllegalArgumentException exception) {
+    } catch (PatternSyntaxException | IllegalArgumentException exception) {
       throw new ParameterException("The pattern \"" + rawPattern + "\" have invalid syntax");
     }
   }

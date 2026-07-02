@@ -2,6 +2,7 @@ package com.netcracker.graylog2.plugin.processor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.google.re2j.Pattern;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationEngine;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationResponse;
@@ -20,16 +21,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ObfuscationEngineTest {
 
   private static final String SSN_PATTERN =
-      "(?<![\\d\\p{IsAlphabetic}]-?)"
-          + "(?>(?!000)(?:[0-6][0-4]\\d)-(?!00)\\d{2}-(?!0000)\\d{4})"
-          + "(?!-?[\\d\\p{IsAlphabetic}])";
+      "\\b(?:[0-6][0-4]\\d)-(?:0[1-9]|[1-9]\\d)-(?:000[1-9]|00[1-9]\\d|0[1-9]\\d\\d|[1-9]\\d{3})\\b";
 
   private ObfuscationEngine obfuscationEngine;
 

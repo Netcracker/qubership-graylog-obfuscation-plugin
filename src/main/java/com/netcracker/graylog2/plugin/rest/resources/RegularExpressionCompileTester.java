@@ -2,9 +2,9 @@ package com.netcracker.graylog2.plugin.rest.resources;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.google.re2j.PatternSyntaxException;
 import com.netcracker.graylog2.plugin.utils.RegularExpressionValidator;
 import java.util.Map;
-import java.util.regex.PatternSyntaxException;
 import org.json.JSONArray;
 
 final class RegularExpressionCompileTester {

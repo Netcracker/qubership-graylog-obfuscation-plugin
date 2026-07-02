@@ -1,6 +1,6 @@
 package com.netcracker.graylog2.plugin.utils;
 
-import java.util.regex.Pattern;
+import com.google.re2j.Pattern;
 
 public final class RegularExpressionValidator {
 
@@ -8,11 +8,8 @@ public final class RegularExpressionValidator {
 
   private RegularExpressionValidator() {}
 
-  @SuppressWarnings("java/regex-injection")
   public static Pattern compile(String expression) {
     validateLength(expression);
-    // lgtm[java/regex-injection] This plugin intentionally stores administrator-provided,
-    // length-bounded regular expressions as obfuscation rules.
     return Pattern.compile(expression);
   }
 

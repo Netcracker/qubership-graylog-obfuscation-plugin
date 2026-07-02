@@ -1,5 +1,7 @@
 package com.netcracker.graylog2.plugin.obfuscation.search;
 
+import com.google.re2j.Matcher;
+import com.google.re2j.Pattern;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.SensitiveRegularExpression;
 import com.netcracker.graylog2.plugin.obfuscation.WhiteListService;
@@ -8,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;

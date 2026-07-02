@@ -24,7 +24,15 @@ public class ObfuscationResourceTest {
         RegularExpressionCompileTester.testCompile(new JSONArray("[\"[\"]"));
 
     assertTrue(entity.containsKey("["));
-    assertEquals("Unclosed character class", entity.get("[").get("description"));
+    assertEquals("missing closing ]", entity.get("[").get("description"));
+  }
+
+  @Test
+  public void testCompileRegularExpressionsRejectsUnsupportedJavaRegexSyntax() {
+    Map<String, Map<String, Object>> entity =
+        RegularExpressionCompileTester.testCompile(new JSONArray("[\"(?=secret)secret\"]"));
+
+    assertTrue(entity.containsKey("(?=secret)secret"));
   }
 
   @Test

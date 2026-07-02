@@ -2,6 +2,7 @@ package com.netcracker.graylog2.plugin.obfuscation.configuration;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.re2j.Pattern;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationSystemException;
 import com.netcracker.graylog2.plugin.obfuscation.RegularExpression;
 import com.netcracker.graylog2.plugin.obfuscation.SensitiveRegularExpression;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Pattern;
 import javax.inject.Singleton;
 import org.apache.commons.lang3.StringUtils;
 

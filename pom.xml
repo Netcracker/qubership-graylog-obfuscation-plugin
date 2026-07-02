@@ -33,6 +33,7 @@
         <javassist.version>3.23.1-GA</javassist.version>
         <snakeyaml.version>2.2</snakeyaml.version>
         <json.version>20260522</json.version>
+        <re2j.version>1.8</re2j.version>
         <mockito.version>5.23.0</mockito.version>
         <commons-io.version>2.21.0</commons-io.version>
         <javax.inject.version>1</javax.inject.version>
@@ -158,6 +159,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.re2j</groupId>
+            <artifactId>re2j</artifactId>
+            <version>${re2j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
