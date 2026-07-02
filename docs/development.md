@@ -103,8 +103,9 @@ Backend regular expression rules are compiled with
 [RE2/J](https://github.com/google/re2j). This is intentional: configuration is
 administrator-provided input, and RE2/J gives linear-time matching for rules
 used at message-processing time. Do not replace it with `java.util.regex` for
-configured rules. When adding regex examples or smoke-test fixtures, avoid Java
-regex features that RE2/J rejects, such as lookaround and backreferences.
+configured rules. When adding regular expression examples or smoke-test
+fixtures, avoid Java regular expression features that RE2/J rejects, such as
+lookaround and backreferences.
 
 ## Full Package
 

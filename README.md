@@ -134,8 +134,8 @@ The plugin can be configured through:
 Regular expression rules are compiled with
 [RE2/J](https://github.com/google/re2j), not `java.util.regex`. This keeps
 matching time linear for administrator-provided rules and prevents ReDoS-prone
-patterns from running inside Graylog. RE2/J does not support some Java regex
-features, including lookaround and backreferences. Use the
+patterns from running inside Graylog. RE2/J does not support some Java regular
+expression features, including lookaround and backreferences. Use the
 `/obfuscation/regex/compile/test` endpoint or the web UI validation before
 installing new rules.
 

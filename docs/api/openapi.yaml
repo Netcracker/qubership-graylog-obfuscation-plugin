@@ -8,6 +8,10 @@ info:
 servers:
   - url: https://{GRAYLOG_URL}/api/plugins/com.netcracker.graylog2.plugin
     description: Graylog instance
+    variables:
+      GRAYLOG_URL:
+        default: localhost:9000
+        description: Graylog server host and port.
 
 tags:
   - name: Configuration
@@ -28,7 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetConfiguration'
+                $ref: "#/components/schemas/GetConfiguration"
     post:
       tags:
         - Configuration
@@ -40,7 +44,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetConfiguration'
+              $ref: "#/components/schemas/GetConfiguration"
       responses:
         "200":
           description: OK
@@ -123,7 +127,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ObfuscationResponse'
+                $ref: "#/components/schemas/ObfuscationResponse"
   /obfuscation/replacers:
     get:
       tags:
