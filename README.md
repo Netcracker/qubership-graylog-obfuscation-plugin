@@ -73,7 +73,7 @@ messages using configurable regular expressions.
 2. **Enable obfuscation** by setting `is-obfuscation-enabled: true`
 3. **Configure streams** to specify which log streams to process
 4. **Define field names** to target specific message fields
-5. **Add sensitive data patterns** using regular expressions
+5. **Add sensitive data patterns** using RE2/J-compatible regular expressions
 
 ### Example Configuration
 
@@ -130,6 +130,14 @@ The plugin can be configured through:
 - `field-names`: Array of message field names to obfuscate
 - `sensitive-regular-expressions`: Patterns for sensitive data detection
 - `white-regular-expressions`: Patterns to exclude from obfuscation
+
+Regular expression rules are compiled with
+[RE2/J](https://github.com/google/re2j), not `java.util.regex`. This keeps
+matching time linear for administrator-provided rules and prevents ReDoS-prone
+patterns from running inside Graylog. RE2/J does not support some Java regex
+features, including lookaround and backreferences. Use the
+`/obfuscation/regex/compile/test` endpoint or the web UI validation before
+installing new rules.
 
 For detailed configuration options, see the
 [Configuration Guide](docs/configuration_guide.md).

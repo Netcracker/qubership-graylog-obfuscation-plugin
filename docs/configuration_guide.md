@@ -54,16 +54,22 @@ The graylog-obfuscation-plugin have a following endpoints:
 * "white-regular-expressions": [] (The list of white regular expressions)
 * "sensitive-regular-expressions": [] (The list of regular expressions for sensitive data search)
 
+Regular expression patterns use [RE2/J](https://github.com/google/re2j)
+syntax. RE2/J intentionally rejects some `java.util.regex` features, including
+lookaround and backreferences, so that matching administrator-provided rules is
+bounded and safe for Graylog message processing. Use the
+`/obfuscation/regex/compile/test` endpoint or the web UI validation to check
+patterns before installing a configuration.
+
 ## Sensitive Regular Expression
 
 * "id": 1 (The unique ID of regular expression)
 * "name": 'Passport Number' (The readable name of regular expression)
-* "pattern": '\\d{7}' (The regular expression pattern)
+* "pattern": '\\b\\d{7}\\b' (The RE2/J-compatible regular expression pattern)
 * "importance": 1 (If two regular expressions have interception place in text, that conflict will resolve by importance value)
 
 ## White Regular Expression
 
 * "id": 1 (The unique ID of regular expression)
 * "name": 'White Passport Number' (The readable name of regular expression)
-* "pattern": '3867742' (The regular expression pattern)
-
+* "pattern": '3867742' (The RE2/J-compatible regular expression pattern)

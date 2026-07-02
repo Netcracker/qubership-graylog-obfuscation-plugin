@@ -63,6 +63,9 @@ public class ObfuscationEngineTest {
     ObfuscationResponse obfuscationResponse =
         obfuscationEngine.obfuscateText(new ObfuscationRequest("123-12-1234"));
     assertEquals("********", obfuscationResponse.getObfuscatedText());
+    assertEquals(
+        "RegularExpression#Social Security Number",
+        obfuscationResponse.getFoundSensitiveData().get(0).getFinder());
   }
 
   @Test

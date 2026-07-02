@@ -103,7 +103,7 @@ read -r -d '' configuration <<'JSON'
         {
             "id": 1,
             "name": "Social Security Number",
-            "pattern": "(?<![\\d\\p{IsAlphabetic}]-?)(?>(?!000)(?:[0-6][0-4]\\d)-(?!00)\\d{2}-(?!0000)\\d{4})(?!-?[\\d\\p{IsAlphabetic}])",
+            "pattern": "\\b(?:[0-6][0-4]\\d)-(?:0[1-9]|[1-9]\\d)-(?:000[1-9]|00[1-9]\\d|0[1-9]\\d\\d|[1-9]\\d{3})\\b",
             "importance": 1
         }
     ],
