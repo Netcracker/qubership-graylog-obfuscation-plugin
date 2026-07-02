@@ -1,13 +1,13 @@
 {
-    "threshold": 2,
-    "ignore": [
-        "**/.git/**",
-        "**/.github/actions/**",
-        "**/.github/workflows/**",
-        "**/charts/*/templates/*/*.yaml",
-        "**/charts/*/templates/*/*/*.yaml",
-        "**/docs/examples/**",
-        "**/docs/postman/**",
-        "pom.xml"
-    ]
+  "threshold": 2,
+  "ignore": [
+    "**/.git/**",
+    "**/.github/actions/**",
+    "**/.github/workflows/**",
+    "**/charts/*/templates/*/*.yaml",
+    "**/charts/*/templates/*/*/*.yaml",
+    "**/docs/examples/**",
+    "**/docs/postman/**",
+    "pom.xml"
+  ]
 }

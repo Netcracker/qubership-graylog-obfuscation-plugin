@@ -3,6 +3,7 @@ package com.netcracker.graylog2.plugin.rest.resources;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.netcracker.graylog2.plugin.utils.RegularExpressionValidator;
 import java.util.Map;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
@@ -28,8 +29,7 @@ public class ObfuscationResourceTest {
 
   @Test
   public void testCompileRegularExpressionsRejectsTooLongPattern() {
-    String expression =
-        "a".repeat(RegularExpressionCompileTester.MAX_REGULAR_EXPRESSION_LENGTH + 1);
+    String expression = "a".repeat(RegularExpressionValidator.MAX_REGULAR_EXPRESSION_LENGTH + 1);
     Map<String, Map<String, Object>> entity =
         RegularExpressionCompileTester.testCompile(new JSONArray("[\"" + expression + "\"]"));
 
