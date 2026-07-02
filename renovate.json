@@ -29,7 +29,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"],
+      "managerFilePatterns": ["//(^|/)\\.github/workflows/[^/]+\\.ya?ml$//"],
       "matchStrings": ["GRAYLOG_VERSION:\\s*\"(?<currentValue>[^\"]+)\""],
       "datasourceTemplate": "maven",
       "depNameTemplate": "org.graylog2:graylog2-server",
@@ -37,8 +37,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "/(^|/)src/integration-test/graylog/docker-compose\\.yml$/"
+      "managerFilePatterns": [
+        "//(^|/)src/integration-test/graylog/docker-compose\\.yml$//"
       ],
       "matchStrings": [
         "graylog/graylog:\\$\\{GRAYLOG_VERSION:-(?<currentValue>[^}]+)\\}"
