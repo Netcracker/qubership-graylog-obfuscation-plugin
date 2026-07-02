@@ -1,15 +1,11 @@
 package com.netcracker.graylog2.plugin.rest.resources;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationEngine;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.ObfuscationResponse;
 import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacers;
 import java.util.Collections;
-import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -73,21 +69,6 @@ public class ObfuscationResource extends RestResource implements PluginRestResou
   @NoAuditEvent("I don't know what to write here")
   public Response testCompileRegularExpressions(String json) {
     JSONArray expressions = new JSONObject(json).getJSONArray("expressions");
-    Map<String, Map<String, Object>> compilationFailedExpressions = Maps.newHashMap();
-
-    for (int i = 0; i < expressions.length(); i++) {
-      String expression = expressions.getString(i);
-      try {
-        Pattern.compile(expression);
-      } catch (PatternSyntaxException exception) {
-        compilationFailedExpressions.put(
-            expression,
-            ImmutableMap.of(
-                "description", exception.getDescription(),
-                "index", exception.getIndex()));
-      }
-    }
-
-    return Response.ok(compilationFailedExpressions).build();
+    return Response.ok(RegularExpressionCompileTester.testCompile(expressions)).build();
   }
 }

@@ -1,6 +1,20 @@
 {
-  "extends": ["config:recommended"],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices"],
+  "labels": ["dependencies"],
+  "schedule": ["every 4 day"],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/target/**",
+    ".graylog/**",
+    ".m2/**"
+  ],
   "packageRules": [
+    {
+      "description": "Group all GitHub Actions updates into a single PR.",
+      "groupName": "GitHub Actions",
+      "matchManagers": ["github-actions"]
+    },
     {
       "description": "Keep the plugin on the Graylog 5.x line.",
       "matchPackageNames": [
@@ -15,7 +29,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"],
+      "fileMatch": ["/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"],
       "matchStrings": ["GRAYLOG_VERSION:\\s*\"(?<currentValue>[^\"]+)\""],
       "datasourceTemplate": "maven",
       "depNameTemplate": "org.graylog2:graylog2-server",
@@ -23,7 +37,7 @@
     },
     {
       "customType": "regex",
-      "managerFilePatterns": [
+      "fileMatch": [
         "/(^|/)src/integration-test/graylog/docker-compose\\.yml$/"
       ],
       "matchStrings": [
