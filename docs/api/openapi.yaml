@@ -8,6 +8,10 @@ info:
 servers:
   - url: https://{GRAYLOG_URL}/api/plugins/com.netcracker.graylog2.plugin
     description: Graylog instance
+    variables:
+      GRAYLOG_URL:
+        default: localhost:9000
+        description: Graylog server host and port.
 
 tags:
   - name: Configuration
@@ -28,7 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetConfiguration'
+                $ref: "#/components/schemas/GetConfiguration"
     post:
       tags:
         - Configuration
@@ -40,7 +44,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetConfiguration'
+              $ref: "#/components/schemas/GetConfiguration"
       responses:
         "200":
           description: OK
@@ -123,7 +127,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ObfuscationResponse'
+                $ref: "#/components/schemas/ObfuscationResponse"
   /obfuscation/replacers:
     get:
       tags:
@@ -136,12 +140,14 @@ paths:
           content:
             application/json:
               schema:
-                example: {"Static Star Replacer": "********"}
+                example:
+                  Static Star Replacer: "********"
   /regex/compile/test:
     post:
       tags:
         - Obfuscation
-      description: Compile test of regular expressions. Return non empty response only if errors happened
+      description: >
+        Compile test of RE2/J regular expressions. Return non empty response only if errors happened.
       operationId: compileTest
       requestBody:
         description: Expressions
@@ -156,7 +162,10 @@ paths:
           content:
             application/json:
               schema:
-                example: ["expr2": { "description": "description", "index": "index1"}]
+                example:
+                  expr2:
+                    description: description
+                    index: index1
 components:
   schemas:
     GetConfiguration:
@@ -168,7 +177,7 @@ components:
           description: If parameter is true, then obfuscation for logs enabled
         sensitive-regular-expressions:
           type: array
-          description: The list of regular expressions for sensitive data search
+          description: The list of RE2/J regular expressions for sensitive data search
           items:
             type: object
             properties:
@@ -186,11 +195,11 @@ components:
                 description: The readable name of regular expression
               pattern:
                 type: string
-                example: "\\d{7}"
-                description: The regular expression pattern
+                example: "\\b\\d{7}\\b"
+                description: The RE2/J-compatible regular expression pattern
         white-regular-expressions:
           type: array
-          description: The list of white regular expressions
+          description: The list of white RE2/J regular expressions
           items:
             type: object
             properties:
@@ -205,7 +214,7 @@ components:
               pattern:
                 type: string
                 example: "3867742"
-                description: The regular expression pattern
+                description: The RE2/J-compatible regular expression pattern
         field-names:
           type: array
           description: The fields in log message which will be obfuscated
@@ -238,14 +247,5 @@ components:
               sensitiveText:
                 type: string
               finder:
-                type: object
-                properties:
-                  importance:
-                    type: integer
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  pattern:
-                    type: string
-
+                type: string
+                description: The finder name that matched this sensitive data.
