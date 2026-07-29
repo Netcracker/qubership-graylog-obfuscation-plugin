@@ -22,6 +22,25 @@
       ],
       "allowedVersions": "/^5\\./",
       "groupName": "Graylog 5.x"
+    },
+    {
+      "description": "Keep the custom Graylog image version tag-only",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["graylog/graylog"],
+      "pinDigests": false
+    },
+    {
+      "description": "Keep the integration stack on the tested OpenSearch 2.15 line",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["opensearchproject/opensearch"],
+      "allowedVersions": "<2.16.0"
+    },
+    {
+      "description": "Keep the integration stack on the tested MongoDB 7.x line",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["mongo"],
+      "allowedVersions": "<8.0.0"
     }
   ],
   "customManagers": [
