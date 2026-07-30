@@ -5,7 +5,6 @@
     "github>Netcracker/renovate-config:github-actions",
     "github>Netcracker/renovate-config:netcracker-dependencies"
   ],
-  "schedule": ["every 4 day"],
   "ignorePaths": [
     "**/node_modules/**",
     "**/target/**",
