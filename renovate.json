@@ -1,8 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices"],
-  "labels": ["dependencies"],
-  "schedule": ["every 4 day"],
+  "extends": [
+    "github>Netcracker/renovate-config:base",
+    "github>Netcracker/renovate-config:github-actions",
+    "github>Netcracker/renovate-config:netcracker-dependencies"
+  ],
   "ignorePaths": [
     "**/node_modules/**",
     "**/target/**",
@@ -10,11 +12,6 @@
     ".m2/**"
   ],
   "packageRules": [
-    {
-      "description": "Group all GitHub Actions updates into a single PR.",
-      "groupName": "GitHub Actions",
-      "matchManagers": ["github-actions"]
-    },
     {
       "description": "Keep the plugin on the Graylog 5.x line.",
       "matchPackageNames": [
@@ -24,12 +21,31 @@
       ],
       "allowedVersions": "/^5\\./",
       "groupName": "Graylog 5.x"
+    },
+    {
+      "description": "Keep the custom Graylog image version tag-only",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["graylog/graylog"],
+      "pinDigests": false
+    },
+    {
+      "description": "Keep the integration stack on the tested OpenSearch 2.15 line",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["opensearchproject/opensearch"],
+      "allowedVersions": "<2.16.0"
+    },
+    {
+      "description": "Keep the integration stack on the tested MongoDB 7.x line",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["mongo"],
+      "allowedVersions": "<8.0.0"
     }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["//(^|/)\\.github/workflows/[^/]+\\.ya?ml$//"],
+      "managerFilePatterns": ["/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"],
       "matchStrings": ["GRAYLOG_VERSION:\\s*\"(?<currentValue>[^\"]+)\""],
       "datasourceTemplate": "maven",
       "depNameTemplate": "org.graylog2:graylog2-server",
@@ -38,7 +54,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "//(^|/)src/integration-test/graylog/docker-compose\\.yml$//"
+        "/(^|/)src/integration-test/graylog/docker-compose\\.yml$/"
       ],
       "matchStrings": [
         "graylog/graylog:\\$\\{GRAYLOG_VERSION:-(?<currentValue>[^}]+)\\}"
