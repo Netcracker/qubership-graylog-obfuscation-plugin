@@ -26,7 +26,7 @@ left/right sides.
 
 **Document**:
 
-- [https://www.theiphonewiki.com/wiki/ICCID](https://www.theiphonewiki.com/wiki/ICCID)
+- [ITU-T Recommendation E.118](https://www.itu.int/rec/T-REC-E.118)
 
 **Format**: `MMCC IINN NNNN NNNN NN C x`, 19-20 digits
 
