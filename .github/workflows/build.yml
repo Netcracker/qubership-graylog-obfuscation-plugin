@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GRAYLOG_VERSION: "5.2.12"
+  GRAYLOG_VERSION: "6.3.12"
 
 jobs:
   backend:
