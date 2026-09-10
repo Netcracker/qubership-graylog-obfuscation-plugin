@@ -35,7 +35,7 @@
         <json.version>20260522</json.version>
         <re2j.version>1.8</re2j.version>
         <mockito.version>5.23.0</mockito.version>
-        <commons-io.version>2.21.0</commons-io.version>
+        <commons-io.version>2.22.0</commons-io.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
