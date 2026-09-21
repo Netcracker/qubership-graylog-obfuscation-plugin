@@ -100,3 +100,15 @@ jobs:
             gh release create "${tag}" dist/*.jar --title "${tag}" \
               --notes "Graylog obfuscation plugin ${tag}."
           fi
+
+  ci_gate:
+    name: CI Gate
+    needs: [backend, package]
+    if: ${{ always() && github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Require validation when applicable
+        if: needs.backend.result != 'success' || needs.package.result != 'success'
+        run: exit 1
