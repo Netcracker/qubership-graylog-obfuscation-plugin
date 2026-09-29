@@ -5,13 +5,13 @@ import com.netcracker.graylog2.plugin.obfuscation.configuration.ConfigurationSer
 import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacer;
 import com.netcracker.graylog2.plugin.obfuscation.search.SensitiveData;
 import com.netcracker.graylog2.plugin.obfuscation.search.SensitiveDataSearcher;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class ObfuscationEngine {

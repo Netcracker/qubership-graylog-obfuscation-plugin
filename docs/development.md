@@ -3,8 +3,8 @@
 This guide describes how to build, test, and run the Graylog Obfuscation Plugin
 locally.
 
-The current development target is Graylog `5.2.x`. The plugin uses Graylog
-`5.2.12`, Java 17, and the Graylog `5.2.12` frontend plugin toolchain.
+The current development target is Graylog `6.3.x`. The plugin uses Graylog
+`6.3.12`, Java 17, and the Graylog `6.3.12` frontend plugin toolchain.
 
 ## Prerequisites
 
@@ -60,14 +60,14 @@ By default the script:
 1. Clones or updates Graylog from
    `https://github.com/Graylog2/graylog2-server.git`.
 2. Checks out the Graylog version from `<graylog.version>` in `pom.xml`,
-   currently `5.2.12`.
+   currently `6.3.12`.
 3. Runs `yarn install --frozen-lockfile` in `graylog2-web-interface`.
 4. Builds the Graylog web vendor bundle required by plugin webpack builds.
 
 Useful overrides:
 
 ```bash
-GRAYLOG_VERSION=5.2.12 scripts/update-graylog-web.sh
+GRAYLOG_VERSION=6.3.12 scripts/update-graylog-web.sh
 GRAYLOG_REPOSITORY=https://github.com/Graylog2/graylog2-server.git scripts/update-graylog-web.sh
 GRAYLOG_SOURCE_DIR=/path/to/graylog2-server scripts/update-graylog-web.sh
 GRAYLOG_WEB_PREPARE_DEPS=false scripts/update-graylog-web.sh
@@ -133,7 +133,7 @@ scripts/set-plugin-version.sh 1.2.1
 The script updates the Maven project version and the npm package version without
 creating a Git tag.
 
-Graylog versions are intentionally kept on the `5.x` line. Renovate is
+Graylog versions are intentionally kept on the `6.x` line. Renovate is
 configured in `renovate.json` to update:
 
 - the Maven Graylog parent and server artifacts,
@@ -273,5 +273,6 @@ integration point expected by downstream plugin packaging, including
 - Frontend changes should pass `make frontend-test` and `make frontend-build`.
 - Plugin registration, REST resources, dependency version changes, and UI wiring
   changes should pass `make smoke`.
-- REST resources must use `javax.ws.rs` and `javax.validation` APIs for Graylog
-  5.2.
+- REST resources and Guice bindings must use `jakarta.ws.rs`,
+  `jakarta.validation`, and `jakarta.inject`. Graylog 6.3 runs Jersey 3 and
+  Guice 7, which ignore the `javax` equivalents.

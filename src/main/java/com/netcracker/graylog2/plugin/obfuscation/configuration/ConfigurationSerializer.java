@@ -10,12 +10,12 @@ import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacer;
 import com.netcracker.graylog2.plugin.obfuscation.replace.TextReplacers;
 import com.netcracker.graylog2.plugin.utils.ParameterException;
 import com.netcracker.graylog2.plugin.utils.ParameterExtractor;
+import jakarta.inject.Singleton;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import javax.inject.Singleton;
 import org.apache.commons.lang3.StringUtils;
 
 @Singleton

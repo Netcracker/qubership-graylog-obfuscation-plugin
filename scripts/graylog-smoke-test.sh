@@ -15,9 +15,15 @@ curl_local=(curl --noproxy '*')
 
 cd "${repo_root}"
 
-if [[ -z "${JAVA_HOME:-}" && -x /usr/lib/jvm/java-17-openjdk/bin/java ]]; then
-    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-    export PATH="${JAVA_HOME}/bin:${PATH}"
+if [[ -z "${JAVA_HOME:-}" ]]; then
+    if [[ -x /usr/lib/jvm/java-17-openjdk/bin/java ]]; then
+        export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+    elif [[ -x /opt/homebrew/opt/openjdk@17/bin/java ]]; then
+        export JAVA_HOME=/opt/homebrew/opt/openjdk@17
+    fi
+    if [[ -n "${JAVA_HOME:-}" ]]; then
+        export PATH="${JAVA_HOME}/bin:${PATH}"
+    fi
 fi
 
 MAVEN_REPO_LOCAL="${maven_repo}" make "${build_target}"

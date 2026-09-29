@@ -14,14 +14,14 @@
   ],
   "packageRules": [
     {
-      "description": "Keep the plugin on the Graylog 5.x line.",
+      "description": "Keep the plugin on the Graylog 6.x line.",
       "matchPackageNames": [
         "org.graylog.plugins:graylog-plugin-parent",
         "org.graylog2:graylog2-server",
         "graylog/graylog"
       ],
-      "allowedVersions": "/^5\\./",
-      "groupName": "Graylog 5.x"
+      "allowedVersions": "/^6\\./",
+      "groupName": "Graylog 6.x"
     },
     {
       "description": "Keep the custom Graylog image version tag-only",

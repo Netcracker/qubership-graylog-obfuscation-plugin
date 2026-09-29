@@ -6,13 +6,13 @@ import com.netcracker.graylog2.plugin.obfuscation.ObfuscationRequest;
 import com.netcracker.graylog2.plugin.obfuscation.SensitiveRegularExpression;
 import com.netcracker.graylog2.plugin.obfuscation.WhiteListService;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class RegularExpressionSensitiveDataSearcher implements SensitiveDataSearcher {

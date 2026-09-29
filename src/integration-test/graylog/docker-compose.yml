@@ -15,7 +15,7 @@ services:
       - graylog
 
   graylog:
-    image: graylog/graylog:${GRAYLOG_VERSION:-5.2.12}
+    image: graylog/graylog:${GRAYLOG_VERSION:-6.3.12}
     depends_on:
       - mongodb
       - opensearch

@@ -1,6 +1,6 @@
 SHELL := /usr/bin/env bash
 
-JDK17_HOME ?= /usr/lib/jvm/java-17-openjdk
+JDK17_HOME ?= $(shell if [ -x /usr/lib/jvm/java-17-openjdk/bin/java ]; then echo /usr/lib/jvm/java-17-openjdk; elif [ -x /opt/homebrew/opt/openjdk@17/bin/java ]; then echo /opt/homebrew/opt/openjdk@17; else echo /usr/lib/jvm/java-17-openjdk; fi)
 MAVEN_REPO_LOCAL ?= $(CURDIR)/.m2/repository
 GRAYLOG_VERSION ?= $(shell sed -n 's:.*<graylog.version>\(.*\)</graylog.version>.*:\1:p' pom.xml | head -n 1)
 GRAYLOG_WEB_SRC ?= $(CURDIR)/.graylog/graylog2-server/graylog2-web-interface

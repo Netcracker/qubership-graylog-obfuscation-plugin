@@ -2,9 +2,9 @@ package com.netcracker.graylog2.plugin.obfuscation;
 
 import com.google.re2j.Pattern;
 import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class WhiteListService {

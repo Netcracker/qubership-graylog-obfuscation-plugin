@@ -1,11 +1,11 @@
 package com.netcracker.graylog2.plugin.obfuscation;
 
 import com.netcracker.graylog2.plugin.obfuscation.configuration.Configuration;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.graylog2.plugin.Message;
 import org.graylog2.plugin.streams.Stream;
 
