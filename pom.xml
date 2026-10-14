@@ -34,7 +34,7 @@
         <snakeyaml.version>2.2</snakeyaml.version>
         <json.version>20260522</json.version>
         <re2j.version>1.8</re2j.version>
-        <mockito.version>5.23.0</mockito.version>
+        <mockito.version>5.24.0</mockito.version>
         <commons-io.version>2.22.0</commons-io.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
