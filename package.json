@@ -19,9 +19,9 @@
   "license": "GPL-3",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.29.7",
-    "@babel/preset-env": "7.29.7",
-    "@babel/preset-react": "7.29.7",
+    "@babel/core": "8.0.9",
+    "@babel/preset-env": "8.0.7",
+    "@babel/preset-react": "8.0.1",
     "babel-jest": "30.5.2",
     "graylog-web-plugin": "file:.graylog/graylog2-server/graylog2-web-interface/packages/graylog-web-plugin",
     "identity-obj-proxy": "3.0.0",
